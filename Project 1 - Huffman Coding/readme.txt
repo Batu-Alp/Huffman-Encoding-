@@ -1,0 +1,1 @@
+I used 99.JPG as image and demofile.txt file as text file
