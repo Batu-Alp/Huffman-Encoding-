@@ -151,16 +151,7 @@ def get_byte_array(padded_encoded_text):
 
 
 def compress4(encoded_text, item):
-    filename_r = "E:/Users/batu_/Desktop/MEF Üniversitesi 2.Sınıf 2021 - 2022 Dönemi/2021-2022 Bahar Dönemi Ders Programı/Programming Studio/ImageProject/Huffman Coding - Project 1/Project 1 - Huffman Coding/CompressDecompressFiles/level4_data" + str(
-        item) + ".txt"
-    text_file_r = open(filename_r, "w")
-
-    text_file_r.write(encoded_text)
-    text_file_r.close()
-
-    output_path = "E:/Users/batu_/Desktop/MEF Üniversitesi 2.Sınıf 2021 - 2022 Dönemi/2021-2022 Bahar Dönemi Ders Programı/Programming Studio/ImageProject/Huffman Coding - Project 1/Project 1 - Huffman Coding/CompressDecompressFiles/level4_data" + str(
-        item) + ".bin"
-
+    output_path = "E:/Users/batu_/Desktop/Git Large Files/Huffman-Encoding/Huffman-Encoding-/Project 1 - Huffman Coding/CompressDecompressFiles/compressed_file_lvl4.bin"
     with open(output_path, 'wb') as output:
         padded_encoded_text = pad_encoded_text(encoded_text)
         byte_array = get_byte_array(padded_encoded_text)
@@ -171,23 +162,17 @@ def compress4(encoded_text, item):
 
 
 def readPILimg4(fname):
-
-
     img = Image.open(fname).convert("RGB")
     arr = PIL2np(img)
     (nrows, ncols) = arr.shape
     total_element = (nrows * ncols)
-
     r, g, b = img.split()
 
     return img, r, g, b, arr, total_element
 
-
-
 def color2gray(img):
     img_gray = img.convert('L')
     return img_gray
-
 
 def PIL2np(img):
     nrows = img.size[0]
@@ -195,23 +180,19 @@ def PIL2np(img):
     imgarray = np.array(img.convert("L"))
     return imgarray
 
-
 def np2PIL(im):
     print("size of arr: ", im.shape)
     img = Image.fromarray(np.uint8(im))
-
     return img
 
 
 def saveDecompressedFile4(decodedOutput_r, arr):
-
-    outpath = "E:/Users/batu_/Desktop/MEF Üniversitesi 2.Sınıf 2021 - 2022 Dönemi/2021-2022 Bahar Dönemi Ders Programı/Programming Studio/ImageProject/Huffman Coding - Project 1/Project 1 - Huffman Coding/CompressDecompressFiles/level4_decompressed_r1.JPG"
+    outpath = "E:/Users/batu_/Desktop/Git Large Files/Huffman-Encoding/Huffman-Encoding-/Project 1 - Huffman Coding/CompressDecompressFiles/decompressed_file_lvl4.JPG"
     decodedOutput_r.save(outpath)
     return outpath
 
 
 def statistics4(huffman_encoding, problist, data):
-
     len_list = []
     for i in huffman_encoding:
         len_list.append(len(huffman_encoding[i]))
@@ -228,17 +209,18 @@ def statistics4(huffman_encoding, problist, data):
         count = data.count(i)
         after_compression += count * len(huffman_encoding[i])
 
-
-    compression_ratio = before_compression / after_compression
     # Entropy
     entropy = 0
     for i in problist:
         entropy += i * (math.log(i, 2))
 
-    return "The entropy is : {0:.3f}\n".format((-1 * entropy)), "L_avg is : {0:.3f}\n".format(lAvg), "Before the " \
-                                                                                                     "compression : {" \
-                                                                                                     "}\n".format(
-        before_compression), "After the compression : {}\n".format(
-        after_compression), "The Compression Ratio (Cr) is " \
-                            "{0:.3f} ".format(compression_ratio)
+    output = (
+        f"The entropy is : {entropy:.3f}\n"
+        f"L_avg is : {lAvg:.3f}\n"
+        f"Before the compression : {before_compression}\n"
+        f"After the compression : {after_compression}\n"
+        f"The Compression Ratio (Cr) is {before_compression / after_compression:.3f}"
+    )
+
+    return output
 

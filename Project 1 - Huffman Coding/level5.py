@@ -146,15 +146,8 @@ def get_byte_array(padded_encoded_text):
 
 
 def compress5(encoded_text, item):
-    filename_r = "E:/Users/batu_/Desktop/MEF Üniversitesi 2.Sınıf 2021 - 2022 Dönemi/2021-2022 Bahar Dönemi Ders Programı/Programming Studio/ImageProject/Huffman Coding - Project 1/Project 1 - Huffman Coding/CompressDecompressFiles/level5_data_" + str(
-        item) + ".txt"
-    text_file_r = open(filename_r, "w")
-    text_file_r.write(encoded_text)
-    text_file_r.close()
-
-    output_path = "E:/Users/batu_/Desktop/MEF Üniversitesi 2.Sınıf 2021 - 2022 Dönemi/2021-2022 Bahar Dönemi Ders Programı/Programming Studio/ImageProject/Huffman Coding - Project 1/Project 1 - Huffman Coding/CompressDecompressFiles/level5" + str(
-        item) + ".bin"
-
+    
+    output_path = "E:/Users/batu_/Desktop/Git Large Files/Huffman-Encoding/Huffman-Encoding-/Project 1 - Huffman Coding/CompressDecompressFiles/compressed_file_lvl5.bin"
     with open(output_path, 'wb') as output:
         padded_encoded_text = pad_encoded_text(encoded_text)
         b = get_byte_array(padded_encoded_text)
@@ -197,7 +190,7 @@ def np2PIL(im):
 
 def saveDecompressedFile5(decodedOutput, arr):
 
-    outpath = "E:/Users/batu_/Desktop/MEF Üniversitesi 2.Sınıf 2021 - 2022 Dönemi/2021-2022 Bahar Dönemi Ders Programı/Programming Studio/ImageProject/Huffman Coding - Project 1/Project 1 - Huffman Coding/CompressDecompressFiles/level5_decompressed_r1.JPG"
+    outpath = "E:/Users/batu_/Desktop/Git Large Files/Huffman-Encoding/Huffman-Encoding-/Project 1 - Huffman Coding/CompressDecompressFiles/decompressed_file_lvl5.JPG"
     decodedOutput.save(outpath)
 
     return outpath
@@ -227,16 +220,15 @@ def statistics5(huffman_encoding, problist, data):
         entropy += i * (math.log(i, 2))
     #print("type of encodingCodes : ",type(huffman_encoding) )
     #print("type of encodingCodes : ", huffman_encoding)
+    output = (
+        f"The entropy is : {entropy:.3f}\n"
+        f"L_avg is : {lAvg:.3f}\n"
+        f"Before the compression : {before_compression}\n"
+        f"After the compression : {after_compression}\n"
+        f"The Compression Ratio (Cr) is {before_compression / after_compression:.3f}"
+    )
 
-    return "The entropy is : {0:.3f}\n".format((-1 * entropy)), "L_avg is : {0:.3f}\n".format(lAvg), "Before the " \
-                                                                                                     "compression : {" \
-                                                                                                     "}\n".format(
-        before_compression), "After the compression : {}\n".format(
-        after_compression), "The Compression Ratio (Cr) is " \
-                            "{0:.3f} ".format(
-        before_compression / after_compression)
-
-
+    return output
 
 
 def difference5(arr, r):
