@@ -141,26 +141,21 @@ def get_byte_array(padded_encoded_text):
 
 def compress1(encoded_text):
 
-    filename = "E:/Users/batu_/Desktop/MEF Üniversitesi 2.Sınıf 2021 - 2022 Dönemi/2021-2022 Bahar Dönemi Ders Programı/Programming Studio/ImageProject/Huffman Coding - Project 1/Project 1 - Huffman Coding/CompressDecompressFiles/compressed_file_lvl1.txt"
-    f = open(filename, "w")
-    f.write(encoded_text)
-    f.close()
-
-    output_path = "E:/Users/batu_/Desktop/MEF Üniversitesi 2.Sınıf 2021 - 2022 Dönemi/2021-2022 Bahar Dönemi Ders Programı/Programming Studio/ImageProject/Huffman Coding - Project 1/Project 1 - Huffman Coding/CompressDecompressFiles/compressed_file_lvl1.bin"
+    
+    output_path = "E:/Users/batu_/Desktop/Git Large Files/Huffman-Encoding/Huffman-Encoding-/Project 1 - Huffman Coding/CompressDecompressFiles/compressed_file_lvl1.bin"
 
     with  open(output_path, 'wb') as output:
-
         padded_encoded_text = pad_encoded_text(encoded_text)
         b = get_byte_array(padded_encoded_text)
         output.write(b)
 
     print("The compressed file is saved")
-    return filename
+    return output_path
 
 def saveDecompressedFile1(decodedOutput):
 
 
-    filename = "E:/Users/batu_/Desktop/MEF Üniversitesi 2.Sınıf 2021 - 2022 Dönemi/2021-2022 Bahar Dönemi Ders Programı/Programming Studio/ImageProject/Huffman Coding - Project 1/Project 1 - Huffman Coding/CompressDecompressFiles/decompressed_file_lvl1.txt"
+    filename = "E:/Users/batu_/Desktop/Git Large Files/Huffman-Encoding/Huffman-Encoding-/Project 1 - Huffman Coding/CompressDecompressFiles/decompressed_file_lvl1.txt"
     f = open(filename, "w")
     f.write(decodedOutput)
     f.close()
@@ -170,7 +165,6 @@ def saveDecompressedFile1(decodedOutput):
 
 
 def readFile(fname):
-
     f = open(fname, "r")
     data = f.read()
     return data
@@ -200,11 +194,11 @@ def statistics1(huffman_encoding, problist, data):
     for i in problist:
         entropy += i * (math.log(i, 2))
 
-
-    return "The entropy is : {0:.3f}\n".format((-1 * entropy)), "L_avg is : {0:.3f}\n".format(lAvg), "Before the " \
-                                                                                                         "compression : {" \
-                                                                                                         "}\n".format(
-            before_compression), "After the compression : {}\n".format(
-            after_compression), "The Compression Ratio (Cr) is " \
-                                "{0:.3f} ".format(
-            before_compression / after_compression)
+    output = (
+        f"The entropy is : {entropy:.3f}\n"
+        f"L_avg is : {lAvg:.3f}\n"
+        f"Before the compression : {before_compression}\n"
+        f"After the compression : {after_compression}\n"
+        f"The Compression Ratio (Cr) is {before_compression / after_compression:.3f}"
+    )
+    return output
