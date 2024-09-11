@@ -88,13 +88,13 @@ def Huffman_Encoding1(data):
 
 def Huffman_Decoding1(encodedData, huffmanTree,filename):
 
-    f =  open(filename, "r")
-    encoded_data = f.read()
+    #f =  open(filename, "r")
+    #encoded_data = f.read()
 
     current = huffmanTree
     output = []
 
-    for i in encoded_data:
+    for i in encodedData:
 
         if int(i) == 0:
             huffmanTree = huffmanTree.left

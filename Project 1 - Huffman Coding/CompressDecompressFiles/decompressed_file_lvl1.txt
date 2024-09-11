@@ -1,1 +1,75 @@
-AAAAAAABCCCCCCDDEEEEE
+I remember that morning going to the lab and I was thinking this is it,
+this is the last Jeopardy game. It became real to me when
+the music played and Johnny Gilbert said from IBM Research in Yorktown Heights, New York,
+this is Jeopardy and I just went. Hear it is one day.
+This is the culmination of all this work. To be honest with you I was emotional.
+Watson. What is Shoe?
+You are right. We actually took the lead. We were ahead of
+them, but then we start getting some questions wrong.
+Watson? What is Leg?
+No, I'm sorry. I can't accept that. What is 1920's?
+No. What is Chic?
+No, sorry, Brad. What is Class?
+Class. You got it. Watson.
+What is Sauron? Sauron is right and that puts
+you into a tie for the lead with Brad. The double Jeopardy round of
+the first game I thought was phenomenal. Watson went on a terror.
+Watson, who is Franz List? You are right.
+What is Violin? Who is the Church Lady?
+Yes. Watson. What is Narcolepsy?
+You are right and with that you move to $36,681. Now, we come to Watson. Who is Bram Stoker
+and the wager, hello $17,973 and a two day total of $77,147.
+We won Jeopardy. They are very justifiably proud of what they've
+done. I would've thought that technology
+like this was years away but it's here now. I have the bruised ego
+to prove it. I think we saw something important today.
+Wow, wait a second. This is history. The 60th Annual Grammy Awards,
+powered by IBM Watson. There's a tremendous amount of unstructured
+data that we process on Grammy Sunday.
+Our partnership with the recording Academy really is focused on
+helping them with some of their workflows for their digital production.
+My content team is responsible not only for taking all this raw stuff that's
+coming in, but curating it and publishing it.
+You're talking about five hours of red carpet coverage with 5,000 artists,
+making that trip down the carpet with a 100,000 photos being shot.
+For the last five hours, Watson has been using AI to analyze the colors,
+patterns, and silhouettes of every single outfit that has passed through.
+So we've been able to see all the dominant styles and
+compare them to Grammy shows in the past. Watson's also analyzing the emotions
+of Grammy nominated song lyrics over the last 60 years.
+Get this, it can actually identify the emotional themes in
+music and categorize them as joy, sadness, and everything else in between. It's
+very cool. Fantasy sports are an incredibly
+important and fun way that we serve sports fans.
+Our fantasy games drive tremendous consumption across ESPN digital
+properties, and they drive tune-in to our events and studio
+shows. But our users have a lot of
+different ways they can spend their time. So we have to continuously improve our game
+so they choose to spend that time with us. This year, ESPN teamed up with
+IBM to add a powerful new feature to their fantasy football platform.
+Fantasy football generates a huge volume of content -
+articles, blogs, videos, podcasts. We call it unstructured data -
+data that doesn't fit neatly into spreadsheets or databases.
+Watson was built to analyze that kind of information and turn it into usable insights.
+We train Watson on millions of fantasy football stories,
+blog posts, and videos. We taught it to develop a scoring
+range for thousands of players, their upsides and their downsides,
+and we taught it to estimate the chances of player will
+exceed their upside or fall below the downside. Watson even assesses a player's media buzz
+and their likelihood to play. This is a big win for our fantasy football
+players. It's one more tool to help them decide which
+running back or QB to start each week. It's a great complement to
+the award-winning analysts our fans rely on. As with any Machine Learning,
+the system gets smarter all the time. That means the insights are better,
+which means are you just can make better decisions and have a better chance to
+win their matchup every week. The more successful our fantasy players are,
+the more time they'll spend with us. The ESPN and IBM partnership
+is a great vehicle to demonstrate the power of enterprise-grade AI to millions
+of people, and it's not hard to see how
+the same technology applies to real life. There are thousands of business scenarios
+where you're assessing value and making trade-offs.
+This is what the future of decision-making is going to look like.
+Man and machine working together, assessing risk and reward,
+working through difficult decisions. This is the same technology
+IBM uses to help doctors mine millions of pages of medical research and
+investment banks fund market moving insights.

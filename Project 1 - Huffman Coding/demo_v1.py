@@ -17,11 +17,15 @@ from tkinter.messagebox import showinfo
 
 root = Tk()
 root.title("Huffman Coding")
-root.geometry('900x600')
+root.geometry('1200x600')
 root.resizable(False, False)
+root.configure(bg='#F5F5F5')  
 
 # Global variables
 stats4_h, stats4_p, stats5_h, stats5_p = [], [], [], []
+
+button_style = {'bg': '#007ACC', 'fg': 'white', 'font': ('Arial', 11, 'bold'), 'width': 12, 'height': 2}
+label_style = {'bg': '#F5F5F5', 'fg': '#333333', 'font': ('Arial', 12, 'bold')}
 
 def display_in_grayscale(image_panel, fname):
     img_rgb = Image.open(fname)
@@ -97,6 +101,8 @@ def open_img(outpath, cordx, cordy):
     return panel
 # File selection
 def selectFile(event):
+
+    clear_previous_widgets()
     if file_clicked.get() == "Image Compression":
         global fname, gui_img_panel
         fname = filedialog.askopenfilename(
@@ -114,7 +120,7 @@ def selectFile(event):
                 ('Blue', 'DodgerBlue2', lambda: display_color_channel(gui_img_panel, 'blue', fname), 360)
             ]
             for text, color, command, x in color_buttons:
-                Button(root, text=text, bg=color, width=10, command=command).place(x=x, y=500)
+                Button(root, text=text, bg=color, width=10, font=('Arial', 10, 'bold'), command=command).place(x=x, y=500)
         print("Image Comp.")
 
     elif file_clicked.get() == "Text File Compression":
@@ -136,11 +142,11 @@ def printStatistics(func_name, huffman_encoding, problist, data):
         mv = 0
         for i, j, k in zip(huffman_encoding, problist, data):
             output = stat_func(i, j, k)
-            tk.Label(root, text=output, font=("Arial", 11)).place(x=460, y=y_start + mv)
+            tk.Label(root, text=output, font=("Arial", 11)).place(x=520, y=y_start + mv)
             mv += 35
     
-    tk.Label(root, text="Comparison", font=('Arial bold', 11)).place(x=560, y=50)
-    y_start = 80
+    tk.Label(root, text="Comparison:", font=('Arial bold', 11)).place(x=550, y=330)
+    y_start = 350
 
     stat_funcs = {
         "statistics1": statistics1,
@@ -162,16 +168,21 @@ def printStatistics(func_name, huffman_encoding, problist, data):
 # Decompression display
 def showDecompressFile(func_name, decoded_output, arr):
     if func_name.startswith("saveDecompressedFile"):
-        Label(root, text="Decompressed Image", font=('Arial bold', 11)).place(x=530, y=200)
+        Label(root, text="Decompressed Image", font=('Arial bold', 11)).place(x=930, y=200)
         outpath = globals().get(func_name)(decoded_output, arr)
         if outpath:
-            open_img(outpath, 500, 230)
-            Label(root, text="Decoding data is saved", font=('Arial bold', 11)).place(x=250, y=100)
+            open_img(outpath, 900, 230)
+            Label(root, text="Decoding data is saved", font=('Arial bold', 11)).place(x=520, y=270)
     else:
         print("Error")
 
 # Compression function
 def compress_func(func_name, data, total_element, index):
+
+    def display_encoded_data(encoded_output, label_positions):
+        Label(root, text="Encoded Data", font=('Arial bold', 11)).place(x=label_positions[0], y=label_positions[1])
+        Label(root, text=encoded_output, font=('Arial bold', 11)).place(x=label_positions[0], y=label_positions[2])
+
     global encoding, tree, huffman_encoding, prob_list, outpath
     compression_functions = {
         "compress1": (Huffman_Encoding1, compress1),
@@ -188,15 +199,22 @@ def compress_func(func_name, data, total_element, index):
         encoding2, tree2, huffman_encoding2, problist2 = Huffman_Encoding2(data, total_element)
         encoding3, tree3, huffman_encoding3, problist3 = Huffman_Encoding3(data, total_element)
         '''
-        encoding, tree, huffman_encoding, prob_list = encoding_func(data, total_element if 'total_element' in locals() else 0)
+        if (encoding_func == Huffman_Encoding1):
+            encoding, tree, huffman_encoding, prob_list = encoding_func(data)
+        else:
+            encoding, tree, huffman_encoding, prob_list = encoding_func(data, total_element if 'total_element' in locals() else 0)
+            
         outpath = compress_func(encoding)
         globals()[f"outpath{func_name[-1]}"] = outpath
         globals()[f"encoding{func_name[-1]}"] = encoding
         globals()[f"tree{func_name[-1]}"] = tree
         globals()[f"huffman_encoding{func_name[-1]}"] = huffman_encoding
         globals()[f"prob_list{func_name[-1]}"] = prob_list
-        Label(root, text="Encoding data is saved", font=('Arial bold', 11)).place(x=250, y=60)
-        if func_name.startswith("compress4") or func_name.startswith("compress5"):
+        if (compress_func == compress1):
+            display_encoded_data(encoding, [250, 210, 230])
+        else:
+            Label(root, text="Encoding data is saved", font=('Arial bold', 11)).place(x=520, y=230)
+        if compress_func == compress4 or compress_func == compress5:
             if index in {1, 2, 3}:
                 stats = stats4_h if func_name == "compress4" else stats5_h
                 prob_stats = stats4_p if func_name == "compress4" else stats5_p
@@ -212,9 +230,9 @@ def decompress_func(func_name, arr, index):
         return decoded_data
 
     def display_decoded_data(decoded_output, label_positions):
-        Label(root, text="Decoding data is saved", font=('Arial bold', 11)).place(x=label_positions[0], y=label_positions[1])
-        Label(root, text="Decoded Data", font=('Arial bold', 11)).place(x=label_positions[0], y=label_positions[2])
-        Label(root, text=decoded_output, font=('Arial bold', 11)).place(x=label_positions[0], y=label_positions[3])
+        # Label(root, text="Decoding data is saved", font=('Arial bold', 11)).place(x=label_positions[0], y=label_positions[1])
+        Label(root, text="Decoded Data", font=('Arial bold', 11)).place(x=label_positions[0], y=label_positions[1])
+        Label(root, text=decoded_output, font=('Arial bold', 11)).place(x=label_positions[0], y=label_positions[2])
 
     global output_r_array, output_g_array, output_b_array, output_r_array_5, output_g_array_5, output_b_array_5
     global total_list, total_list_5
@@ -222,7 +240,7 @@ def decompress_func(func_name, arr, index):
     if func_name == "decompress1":
         decoded_output1 = Huffman_Decoding1(encoding, tree, outpath)
         saveDecompressedFile1(decoded_output1)
-        display_decoded_data(decoded_output1, [250, 100, 300, 340])
+        display_decoded_data(decoded_output1, [250, 250, 270])
 
     elif func_name == "decompress2":
         decoded_output = Huffman_Decoding2(encoding, tree, outpath, arr)
@@ -298,33 +316,33 @@ def selectMethod(event):
     method = clicked.get()
     if method == "Level 1":
         data = readFile(text_filename)
-        Button(root, text="Compressed", width=10, command=lambda: compress_func("compress1", data, 0, 0)).grid(row=1, column=7)
-        Button(root, text="Decompressed", width=10, command=lambda: decompress_func("decompress1", 0, 0)).grid(row=1, column=8)
-        Button(root, text="Comparison", width=10, command=lambda: printStatistics("statistics1", huffman_encoding, prob_list, data)).grid(row=1, column=9)
+        Button(root, text="Compressed", **button_style, command=lambda: compress_func("compress1", data, 0, 0)).grid(row=1, column=7, padx=8)
+        Button(root, text="Decompressed", **button_style, command=lambda: decompress_func("decompress1", 0, 0)).grid(row=1, column=8, padx=8)
+        Button(root, text="Comparison", **button_style, command=lambda: printStatistics("statistics1", huffman_encoding, prob_list, data)).grid(row=1, column=9, padx=8)
     elif method == "Level 2":
         data, total_element, arr = readPILimg(fname)
-        Button(root, text="Compressed", width=10, command=lambda: compress_func("compress2", data, total_element, 0)).grid(row=1, column=7)
-        Button(root, text="Decompressed", width=10, command=lambda: decompress_func("decompress2", arr, 0)).grid(row=1, column=8)
-        Button(root, text="Comparison", width=10, command=lambda: printStatistics("statistics2", huffman_encoding, prob_list, data)).grid(row=1, column=9)
+        Button(root, text="Compressed", **button_style, command=lambda: compress_func("compress2", data, total_element, 0)).grid(row=1, column=7, padx=8)
+        Button(root, text="Decompressed", **button_style, command=lambda: decompress_func("decompress2", arr, 0)).grid(row=1, column=8, padx=8)
+        Button(root, text="Comparison", **button_style, command=lambda: printStatistics("statistics2", huffman_encoding, prob_list, data)).grid(row=1, column=9, padx=8)
     elif method == "Level 3":
         diff_arr3, total_element, arr = readPILimg3(fname)
-        Button(root, text="Compressed", width=10, command=lambda: compress_func("compress3", diff_arr3, total_element, 0)).grid(row=1, column=7)
-        Button(root, text="Decompressed", width=10, command=lambda: decompress_func("decompress3", arr, 0)).grid(row=1, column=8)
-        Button(root, text="Comparison", width=10, command=lambda: printStatistics("statistics3", huffman_encoding, prob_list, diff_arr3)).grid(row=1, column=9)
+        Button(root, text="Compressed", **button_style, command=lambda: compress_func("compress3", diff_arr3, total_element, 0)).grid(row=1, column=7, padx=8)
+        Button(root, text="Decompressed", **button_style, command=lambda: decompress_func("decompress3", arr, 0)).grid(row=1, column=8, padx=8)
+        Button(root, text="Comparison", **button_style, command=lambda: printStatistics("statistics3", huffman_encoding, prob_list, diff_arr3)).grid(row=1, column=9, padx=8)
     elif method == "Level 4":
         img, r, g, b, arr, total_element = readPILimg4(fname)
         global r_4, g_4, b_4, arr_4
         r_4, g_4, b_4, arr_4 = r, g, b, arr
-        Button(root, text="Compressed", width=10, command=lambda: compress_decompress("compress4", r, g, b, arr, total_element)).grid(row=1, column=7)
-        Button(root, text="Decompressed", width=10, command=lambda: decompress_func("decompress4", arr_4, 0)).grid(row=1, column=8)
-        Button(root, text="Comparison", width=10, command=lambda: printStatistics("statistics4", stats4_h, stats4_p, r)).grid(row=1, column=9)
+        Button(root, text="Compressed", **button_style, command=lambda: compress_decompress("compress4", r, g, b, arr, total_element)).grid(row=1, column=7, padx=8)
+        Button(root, text="Decompressed", **button_style, command=lambda: decompress_func("decompress4", arr_4, 0)).grid(row=1, column=8, padx=8)
+        Button(root, text="Comparison", **button_style, command=lambda: printStatistics("statistics4", stats4_h, stats4_p, r)).grid(row=1, column=9, padx=8)
     elif method == "Level 5":
         img, r, g, b, arr, total_element = readPILimg5(fname)
         global r_5, g_5, b_5, arr_5
         r_5, g_5, b_5, arr_5 = r, g, b, arr
-        Button(root, text="Compressed", width=10, command=lambda: compress_decompress("compress5", r, g, b, arr, total_element)).grid(row=1, column=7)
-        Button(root, text="Decompressed", width=10, command=lambda: decompress_func("decompress5", arr_5, 0)).grid(row=1, column=8)
-        Button(root, text="Comparison", width=10, command=lambda: printStatistics("statistics5", stats5_h, stats5_p, r)).grid(row=1, column=9)
+        Button(root, text="Compressed", **button_style, command=lambda: compress_decompress("compress5", r, g, b, arr, total_element)).grid(row=1, column=7, padx=8)
+        Button(root, text="Decompressed", **button_style, command=lambda: decompress_func("decompress5", arr_5, 0)).grid(row=1, column=8, padx=8)
+        Button(root, text="Comparison", **button_style, command=lambda: printStatistics("statistics5", stats5_h, stats5_p, r)).grid(row=1, column=9, padx=8)
     else:
         print("Error")
 
@@ -342,22 +360,32 @@ def update_method_options(selected_file_type):
 def on_file_option_change(*args):
     selected_file_type = file_clicked.get()
     update_method_options(selected_file_type)
+    Button(root, text="Select File", **button_style, command=lambda: selectFile(None)).grid(row=0, column=1, padx=10, pady=10, sticky='ew')
+    Button(root, text="Select Method", **button_style, command=lambda: selectMethod(None)).grid(row=1, column=1, padx=10, sticky='ew')
 
+def clear_previous_widgets():
+    for widget in root.grid_slaves():  # Griddeki mevcut widget'ları temizler
+        if int(widget.grid_info()["row"]) > 1:  # 1. satırdan sonraki tüm widget'ları temizler
+            widget.grid_forget()
+    for widget in root.place_slaves():  # Place metoduyla yerleştirilen widget'ları temizler
+        widget.place_forget()
 
 file_clicked = StringVar()
 file_clicked.set("Text File Compression")
 file_menu = OptionMenu(root, file_clicked, "Image Compression", "Text File Compression", command=on_file_option_change)
-file_menu.grid(row=0, column=0)
+file_menu.config(font=('Arial', 11, 'bold'), bg='#007ACC', fg='white', width=20)
+file_menu.grid(row=0, column=0, padx=10, pady=10, sticky='ew')
 
 clicked = StringVar()
 clicked.set("Level 1")
 method_menu = OptionMenu(root, clicked, "Level 1")  # Initial option
-method_menu.grid(row=0, column=1)
+method_menu.config(font=('Arial', 11, 'bold'), bg='#007ACC', fg='white', width=20)
+method_menu.grid(row=1, column=0, padx=10, pady=10, sticky='ew')
 
 # Call on_file_option_change to initialize method menu options
 on_file_option_change()
 
-Button(root, text="Select File", width=10, command=lambda: selectFile(None)).grid(row=0, column=2)
-Button(root, text="Select Method", width=10, command=lambda: selectMethod(None)).grid(row=0, column=3)
 
+#Button(root, text="Select File", **button_style, command=lambda: selectFile(None)).grid(row=0, column=2, padx=10)
+#Button(root, text="Select Method", **button_style, command=lambda: selectMethod(None)).grid(row=0, column=3, padx=10)
 root.mainloop()
